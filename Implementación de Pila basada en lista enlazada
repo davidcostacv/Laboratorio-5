@@ -1,0 +1,66 @@
+#include <iostream>
+
+struct Nodo {
+  int dato;
+  Nodo* siguiente;
+};
+
+class PilaEnlazada {
+private:
+  Nodo* cabeza; // Puntero al primer nodo de la pila
+
+public:
+  PilaEnlazada() {
+    cabeza = nullptr; // Inicializar la pila vacía
+  }
+
+  int tamaño() const {
+    int contador = 0;
+    Nodo* actual = cabeza;
+    while (actual != nullptr) {
+      contador++;
+      actual = actual->siguiente;
+    }
+    return contador; // Devolver el número de elementos en la pila
+  }
+
+  bool esVacía() const {
+    return cabeza == nullptr; // Devolver si la pila está vacía
+  }
+
+  const int& tope() const {
+    if (esVacía()) {
+      std::cerr << "Error: La pila está vacía" << std::endl;
+      exit(1);
+    }
+    return cabeza->dato; // Devolver el elemento superior de la pila
+  }
+
+  void empilar(const int& e) {
+    Nodo* nuevo = new Nodo;
+    nuevo->dato = e;
+    nuevo->siguiente = cabeza;
+    cabeza = nuevo; // Agregar 'e' a la pila
+  }
+
+  void desempilar() {
+    if (esVacía()) {
+      std::cerr << "Error: La pila está vacía" << std::endl;
+      exit(1);
+    }
+    Nodo* temp = cabeza;
+    cabeza = cabeza->siguiente;
+    delete temp; // Eliminar el elemento superior de la pila
+  }
+};
+
+int main() {
+  PilaEnlazada pilaEnlazada;
+
+  pilaEnlazada.empilar(1);
+  std::cout << "Tope: " << pilaEnlazada.tope() << std::endl;
+
+  pilaEnlazada.empilar(2);
+  std::cout << "Tope: " << pilaEnlazada.tope() << std::endl;
+
+  pilaEnlazada.emp
