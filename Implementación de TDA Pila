@@ -1,0 +1,68 @@
+#include <iostream>
+
+class Pila {
+private:
+  int elementos[100]; // Arreglo para almacenar los elementos de la pila
+  int tope; // Índice del elemento superior de la pila
+
+public:
+  Pila() {
+    tope = -1; // Inicializar la pila vacía
+  }
+
+  int tamaño() const {
+    return tope + 1; // Devolver el número de elementos en la pila
+  }
+
+  bool esVacía() const {
+    return tope == -1; // Devolver si la pila está vacía
+  }
+
+  const int& tope() const {
+    if (esVacía()) {
+      std::cerr << "Error: La pila está vacía" << std::endl;
+      exit(1);
+    }
+    return elementos[tope]; // Devolver el elemento superior de la pila
+  }
+
+  void empilar(const int& e) {
+    if (tope == 99) {
+      std::cerr << "Error: La pila está llena" << std::endl;
+      exit(1);
+    }
+    elementos[++tope] = e; // Agregar 'e' a la pila
+  }
+
+  void desempilar() {
+    if (esVacía()) {
+      std::cerr << "Error: La pila está vacía" << std::endl;
+      exit(1);
+    }
+    tope--; // Eliminar el elemento superior de la pila
+  }
+};
+
+int main() {
+  Pila pila;
+
+  pila.empilar(1);
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  pila.empilar(2);
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  pila.empilar(3);
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  pila.desempilar();
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  pila.desempilar();
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  pila.desempilar();
+  std::cout << "Tope: " << pila.tope() << std::endl;
+
+  return 0;
+}
